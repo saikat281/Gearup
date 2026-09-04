@@ -1,0 +1,33 @@
+model Payment {
+  id              String          @id @default(cuid())
+
+  transactionId   String          @unique
+
+  rentalOrderId   String
+  rentalOrder     RentalOrder     @relation(fields: [rentalOrderId], references: [id], onDelete: Restrict)
+
+  amount          Decimal         @db.Decimal(10, 2)
+  currency        String          @default("BDT")
+
+  method          PaymentMethod
+  provider        PaymentProvider
+  status          PaymentStatus   @default(PENDING)
+
+  paidAt          DateTime?
+
+  // Useful for Stripe/SSLCommerz gateway responses
+  gatewayTransactionId String?
+  gatewayResponse      Json?
+
+  failureReason  String?
+  refundAmount   Decimal?        @db.Decimal(10, 2)
+  refundedAt     DateTime?
+
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  @@index([rentalOrderId])
+  @@index([status])
+  @@index([provider])
+  @@map("payments")
+}

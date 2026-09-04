@@ -1,0 +1,49 @@
+enum UserRole {
+    CUSTOMER
+    PROVIDER
+    ADMIN
+}
+
+enum GearItemStatus {
+    AVAILABLE
+    UNAVAILABLE
+    MAINTENANCE
+    ARCHIVED
+}
+
+enum RentalOrderStatus {
+    PENDING
+    CONFIRMED
+    ACTIVE
+    COMPLETED
+    CANCELLED
+    REJECTED
+}
+
+enum PaymentMethod {
+    CARD
+    MOBILE_BANKING
+    BANK_TRANSFER
+    CASH
+    OTHER
+}
+
+enum PaymentProvider {
+    STRIPE
+    SSLCOMMERZ
+}
+
+enum PaymentStatus {
+    PENDING
+    COMPLETED
+    FAILED
+    REFUNDED
+    CANCELLED
+}
+
+enum ReviewStatus {
+  PUBLISHED
+  HIDDEN
+  FLAGGED
+}
+

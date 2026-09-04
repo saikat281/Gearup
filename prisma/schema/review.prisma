@@ -1,0 +1,24 @@
+model Review {
+  id          String       @id @default(cuid())
+
+  rating      Int
+  comment     String?
+
+  customerId  String
+  customer    User         @relation(fields: [customerId], references: [id], onDelete: Cascade)
+
+  gearItemId  String
+  gearItem    GearItem     @relation(fields: [gearItemId], references: [id], onDelete: Cascade)
+
+  status      ReviewStatus @default(PUBLISHED)
+
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  // Prevent the same customer from reviewing the same item multiple times
+  @@unique([customerId, gearItemId])
+
+  @@index([gearItemId])
+  @@index([customerId])
+  @@map("reviews")
+}

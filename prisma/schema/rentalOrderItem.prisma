@@ -1,0 +1,20 @@
+model RentalOrderItem {
+  id            String      @id @default(cuid())
+
+  rentalOrderId String
+  rentalOrder   RentalOrder @relation(fields: [rentalOrderId], references: [id], onDelete: Cascade)
+
+  gearItemId    String
+  gearItem      GearItem    @relation(fields: [gearItemId], references: [id], onDelete: Restrict)
+
+  quantity      Int         @default(1)
+  pricePerDay   Decimal     @db.Decimal(10, 2)
+  numberOfDays  Int
+  totalPrice    Decimal     @db.Decimal(10, 2)
+
+  createdAt     DateTime    @default(now())
+
+  @@index([rentalOrderId])
+  @@index([gearItemId])
+  @@map("rental_order_items")
+}
