@@ -1,0 +1,35 @@
+model Profile {
+  id        String   @id @default(cuid())
+
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Personal information
+  firstName String?
+  lastName  String?
+  bio       String?
+  dateOfBirth DateTime?
+
+  // Contact information
+  phone     String?
+  alternatePhone String?
+
+  // Profile
+  avatarUrl String?
+
+  // Address
+  address   String?
+  city      String?
+  state     String?
+  postalCode String?
+  country   String? @default("Bangladesh")
+
+  // Provider-specific information
+  businessName String?
+  businessDescription String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("profiles")
+}
