@@ -6,6 +6,8 @@ import { NextFunction, Request, RequestHandler, Response } from "express";
 import { userService } from "./user.service";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import jwt from "jsonwebtoken"
+import { jwtUtils } from "../../utils/jwt";
 
 
 const RegisterUser = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
@@ -38,6 +40,30 @@ const RegisterUser = catchAsync(async (req: Request, res: Response, next: NextFu
 
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
 
+    // const cookies = req.cookies;
+    const {accessToken} =req.cookies
+    console.log(accessToken);
+
+    // res.send("Get my profile")
+
+   const verifiedToken = jwtUtils.verifiedToken(accessToken,config.jwt_access_secret)
+
+    // console.log(varifiedToken)
+
+    if(typeof verifiedToken === "string"){ // for verification.id type
+        throw new Error("Invalid Token");
+    }
+
+    const profile = await userService.getMyProfileFromDB(verifiedToken.id as string)
+
+     sendResponse(res, {
+        success: true,
+        successStatus: httpStatus.OK,
+        message: "User fetched successfully",
+        data: {
+            profile
+        }
+    })
 })
 
 export const userController = {
