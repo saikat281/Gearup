@@ -14,13 +14,13 @@ const RegisterUser = catchAsync(async (req: Request, res: Response, next: NextFu
 
     const user = await userService.registerUserIntoDB(payload)
 
-    
 
-    sendResponse(res,{
-        success : true,
-        successStatus : httpStatus.CREATED,
-        message : "User Registered successfully",
-        data : {
+
+    sendResponse(res, {
+        success: true,
+        successStatus: httpStatus.CREATED,
+        message: "User Registered successfully",
+        data: {
             user
         }
     })
@@ -36,6 +36,10 @@ const RegisterUser = catchAsync(async (req: Request, res: Response, next: NextFu
     // });
 })
 
+const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+
+})
+
 export const userController = {
-    RegisterUser,
+    RegisterUser,getMyProfile
 }
