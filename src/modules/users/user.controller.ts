@@ -39,22 +39,25 @@ const RegisterUser = catchAsync(async (req: Request, res: Response, next: NextFu
 })
 
 const getMyProfile = catchAsync(async (req: Request, res: Response, next: NextFunction)=>{
+    
+    console.log(req.user);
+//     // const cookies = req.cookies;
+//     const {accessToken} =req.cookies
+//     // console.log(accessToken);
 
-    // const cookies = req.cookies;
-    const {accessToken} =req.cookies
-    console.log(accessToken);
+//     // res.send("Get my profile")
 
-    // res.send("Get my profile")
+//    const verifiedToken = jwtUtils.verifiedToken(accessToken,config.jwt_access_secret)
 
-   const verifiedToken = jwtUtils.verifiedToken(accessToken,config.jwt_access_secret)
+//     // console.log(varifiedToken)
 
-    // console.log(varifiedToken)
+//     if(typeof verifiedToken === "string"){ // for verification.id type
+//         throw new Error("Invalid Token");
+//     }
 
-    if(typeof verifiedToken === "string"){ // for verification.id type
-        throw new Error("Invalid Token");
-    }
+    
 
-    const profile = await userService.getMyProfileFromDB(verifiedToken.id as string)
+    const profile = await userService.getMyProfileFromDB(req.user?.id as string)
 
      sendResponse(res, {
         success: true,
