@@ -8,6 +8,8 @@ import { error } from "node:console";
 import bcrypt from "bcryptjs";
 import { userRouter } from "./modules/users/user.route";
 import { authRoute } from "./modules/auth/auth.route";
+import { providerRouter } from "./modules/provider/provider.route";
+import { adminRouter } from "./modules/admin/admin.route";
 
 
 const app: Application = express();
@@ -33,5 +35,10 @@ app.get('/', async (req: Request, res: Response) => {
 
 app.use('/api/users', userRouter)
 app.use('/api/auth',authRoute)
+
+
+// app.use('/api/provider',providerRouter)
+
+app.use('/api/admin',adminRouter)
 
 export default app;
