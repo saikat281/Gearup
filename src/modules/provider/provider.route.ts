@@ -6,10 +6,8 @@ import { providerController } from "./provider.controller";
 const router = Router();
 
 
-router.post('')
 
-
-router.post('/gear',auth(UserRole.ADMIN,UserRole.CUSTOMER,UserRole.PROVIDER),providerController.addGear)
+router.post('/gear',auth(UserRole.PROVIDER),providerController.addGear)
 
 
 

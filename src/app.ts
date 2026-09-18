@@ -37,7 +37,7 @@ app.use('/api/users', userRouter)
 app.use('/api/auth',authRoute)
 
 
-// app.use('/api/provider',providerRouter)
+app.use('/api/provider',providerRouter)
 
 app.use('/api/admin',adminRouter)
 

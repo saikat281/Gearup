@@ -1,16 +1,25 @@
 import { prisma } from "../../lib/prisma"
-import { iProvider } from "./provider.interface"
+import { GearItem } from "./provider.interface"
 
 
 
-const addGearIntoDb = async(payload : iProvider,userId : string)=>{
 
-    const user = await prisma.category.create({
-        data:{
+const addGearIntoDb = async (payload: GearItem, userId: string) => {
+
+    const category = await prisma.category.findUniqueOrThrow({
+        where: {
+            id: payload.categoryId
+        }
+    });
+
+    const user = await prisma.gearItem.create({
+        data: {
             ...payload,
-            
+            providerId: userId
         }
     })
+
+    return user;
 
 }
 
