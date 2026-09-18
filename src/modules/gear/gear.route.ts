@@ -6,4 +6,6 @@ const router = Router();
 
 router.get('/',gearController.getGears)
 
+router.get('/:gearId',gearController.getGearById)
+
 export const gearRouter = router;
