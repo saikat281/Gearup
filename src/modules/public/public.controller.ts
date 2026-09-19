@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { catchAsync } from "../../utils/catchAsync";
-import { gearService } from "./gear.service";
+import { publicService } from "./public.service";
 import { sendResponse } from "../../utils/sendResponse";
 import httpStatus from "http-status";
 import { prisma } from "../../lib/prisma";
 
 const getGears = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
 
-    const gearItems = await gearService.getGearFromDB();
+    const gearItems = await publicService.getGearFromDB();
 
     sendResponse(res, {
         success: true,
@@ -23,7 +23,7 @@ const getGears = catchAsync(async (req: Request, res: Response, next: NextFuncti
 const getGearById = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
     const gearId = req.params.gearId;
 
-    const getGears = await gearService.getGearByIdFromDB(gearId as string)
+    const getGears = await publicService.getGearByIdFromDB(gearId as string)
 
     sendResponse(res, {
         success: true,
@@ -35,6 +35,19 @@ const getGearById = catchAsync(async (req: Request, res: Response, next: NextFun
     })
 })
 
-export const gearController = {
-    getGears, getGearById
+const getAllCategories = catchAsync(async (req: Request, res: Response, next: NextFunction) => {
+    const categories = await publicService.getAllCategoriesFromDB();
+
+    sendResponse(res, {
+        success: true,
+        successStatus: httpStatus.OK,
+        message: "Get Categories Successfully",
+        data: {
+            categories
+        }
+    })
+})
+
+export const publicController = {
+    getGears, getGearById, getAllCategories
 }

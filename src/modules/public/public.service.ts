@@ -36,6 +36,14 @@ const getGearByIdFromDB = async (postId: string) => {
     return gear;
 }
 
-export const gearService = {
-    getGearFromDB,getGearByIdFromDB
+
+const getAllCategoriesFromDB = async()=>{
+
+    const categories = await prisma.category.findMany();
+
+    return categories;
+}
+
+export const publicService = {
+    getGearFromDB,getGearByIdFromDB,getAllCategoriesFromDB
 }
