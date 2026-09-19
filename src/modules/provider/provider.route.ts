@@ -9,6 +9,8 @@ const router = Router();
 
 router.post('/gear',auth(UserRole.PROVIDER),providerController.addGear)
 
+router.put('/gear/:gearId',auth(UserRole.PROVIDER),providerController.updateGear)
+
 
 
 
